@@ -1,17 +1,24 @@
 package com.bridgelabz.parkinglotsystem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ParkingLotManager implements ParkingLotInformer {
-    private ParkingLotOwner parkingLotOwner;
-    private AirportSecurity airportSecurity;
+    private List<ParkingLotObserver> lotObservers;
 
     public ParkingLotManager() {
-        parkingLotOwner = new ParkingLotOwner();
-        airportSecurity = new AirportSecurity();
+        lotObservers = new ArrayList<>();
     }
 
     @Override
-    public void notifyParkingStatus(boolean status) throws ParkingLotSystemException {
-        parkingLotOwner.updateParkingStatus(status);
-        airportSecurity.updateParkingStatus(status);
+    public void addObserver(ParkingLotObserver lotObserver) {
+        lotObservers.add(lotObserver);
+    }
+
+    @Override
+    public void notifyParkingStatus() {
+        for (ParkingLotObserver lotObserver : lotObservers) {
+            lotObserver.updateParkingStatus();
+        }
     }
 }
