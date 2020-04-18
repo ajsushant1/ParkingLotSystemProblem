@@ -2,18 +2,24 @@ package com.bridgelabz.parkinglotsystem;
 
 public class ParkingLotSystem {
     ParkingLotManager parkingLotManager;
+    ParkingLotOwner parkingLotOwner;
+    AirportSecurity airportSecurity;
     private Object vehicle;
-    boolean isParkingFull;
 
     //CONSTRUCTOR
     public ParkingLotSystem() {
         parkingLotManager = new ParkingLotManager();
+        parkingLotOwner = new ParkingLotOwner();
+        airportSecurity = new AirportSecurity();
+        parkingLotManager.addObserver(parkingLotOwner);
+        parkingLotManager.addObserver(airportSecurity);
     }
 
     //METHOD TO PARK VEHICLE
     public void park(Object vehicle) throws ParkingLotSystemException {
-        if (isParkingFull==true) {
-            parkingLotManager.notifyParkingStatus(true);
+        if (this.vehicle != null) {
+            parkingLotManager.notifyParkingStatus();
+            throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.PARKING_FULL, "Parking is full");
         }
         this.vehicle = vehicle;
     }
@@ -24,7 +30,6 @@ public class ParkingLotSystem {
             throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.NO_VEHICLE, "NO vehicle");
         }
         this.vehicle = null;
-        parkingLotManager.notifyParkingStatus(false);
     }
 
     //METHOD TO CHECK VEHICLE PARKED OR NOT
