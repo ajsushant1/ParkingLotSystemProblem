@@ -3,6 +3,7 @@ package com.bridgelabz.parkinglotsystem;
 public class ParkingLotSystem {
     ParkingLotManager parkingLotManager;
     private Object vehicle;
+    boolean isParkingFull;
 
     //CONSTRUCTOR
     public ParkingLotSystem() {
@@ -11,8 +12,8 @@ public class ParkingLotSystem {
 
     //METHOD TO PARK VEHICLE
     public void park(Object vehicle) throws ParkingLotSystemException {
-        if (this.vehicle != null) {
-            parkingLotManager.notifyParkingStatus();
+        if (isParkingFull==true) {
+            parkingLotManager.notifyParkingStatus(true);
         }
         this.vehicle = vehicle;
     }
@@ -23,6 +24,7 @@ public class ParkingLotSystem {
             throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.NO_VEHICLE, "NO vehicle");
         }
         this.vehicle = null;
+        parkingLotManager.notifyParkingStatus(false);
     }
 
     //METHOD TO CHECK VEHICLE PARKED OR NOT
