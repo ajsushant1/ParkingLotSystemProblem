@@ -1,7 +1,6 @@
 package com.bridgelabz.parkinglotsystemtest;
 
-import com.bridgelabz.parkinglotsystem.ParkingLotSystem;
-import com.bridgelabz.parkinglotsystem.ParkingLotSystemException;
+import com.bridgelabz.parkinglotsystem.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,11 +8,16 @@ import org.junit.Test;
 public class ParkingLotSystemTest {
     ParkingLotSystem parkingLotSystem = null;
     Object vehicle = null;
+    ParkingLotOwner parkingLotOwner=null;
+    AirportSecurity airportSecurity=null;
+    ParkingLotManager parkingLotManager=new ParkingLotManager();
 
     @Before
     public void setUp() throws Exception {
         parkingLotSystem = new ParkingLotSystem();
         vehicle = new Object();
+        parkingLotOwner=new ParkingLotOwner();
+        airportSecurity=new AirportSecurity();
     }
 
     @Test
