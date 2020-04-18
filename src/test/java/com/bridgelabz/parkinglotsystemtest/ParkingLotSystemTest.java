@@ -84,4 +84,17 @@ public class ParkingLotSystemTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenAVehicle_WhenThereIsSpace_ShouldAllowToPark() {
+        try {
+            parkingLotSystem.park(vehicle);
+            parkingLotSystem.unPark(vehicle);
+            parkingLotSystem.park(vehicle);
+            boolean isPark = parkingLotSystem.isVehiclePark(vehicle);
+            Assert.assertTrue(isPark);
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
+        }
+    }
 }
