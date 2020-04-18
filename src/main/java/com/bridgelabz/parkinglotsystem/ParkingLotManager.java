@@ -10,8 +10,8 @@ public class ParkingLotManager implements ParkingLotInformer {
     }
 
     @Override
-    public void notifyParkingStatus() throws ParkingLotSystemException {
-        parkingLotOwner.updateParkingStatus(true);
-        airportSecurity.updateParkingStatus(true);
+    public void notifyParkingStatus(boolean status) throws ParkingLotSystemException {
+        parkingLotOwner.updateParkingStatus(status);
+        airportSecurity.updateParkingStatus(status);
     }
 }

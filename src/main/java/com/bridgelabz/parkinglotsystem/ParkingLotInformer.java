@@ -1,5 +1,5 @@
 package com.bridgelabz.parkinglotsystem;
 
 public interface ParkingLotInformer {
-    void notifyParkingStatus() throws ParkingLotSystemException;
+    void notifyParkingStatus(boolean status) throws ParkingLotSystemException;
 }
