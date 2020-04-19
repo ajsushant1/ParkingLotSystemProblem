@@ -1,44 +1,61 @@
 package com.bridgelabz.parkinglotsystem;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ParkingLotSystem {
+    int SIZE_OF_LOT;
     ParkingLotManager parkingLotManager;
     ParkingLotOwner parkingLotOwner;
     AirportSecurity airportSecurity;
-    private Object vehicle;
+    ParkingAttendant parkingAttendant;
+    Map<String, Vehicle> vehicleMap;
 
     //CONSTRUCTOR
-    public ParkingLotSystem() {
+    public ParkingLotSystem(int SIZE_OF_LOT) {
+        this.SIZE_OF_LOT = SIZE_OF_LOT;
         parkingLotManager = new ParkingLotManager();
         parkingLotOwner = new ParkingLotOwner();
         airportSecurity = new AirportSecurity();
         parkingLotManager.addObserver(parkingLotOwner);
         parkingLotManager.addObserver(airportSecurity);
+        parkingAttendant = new ParkingAttendant(this);
+        vehicleMap = new HashMap<>();
+    }
+
+    public ParkingLotSystem() {
     }
 
     //METHOD TO PARK VEHICLE
-    public void park(Object vehicle) throws ParkingLotSystemException {
-        if (this.vehicle != null) {
-            parkingLotManager.notifyParkingStatus();
+    public void park(Vehicle vehicle) throws ParkingLotSystemException {
+        if (isLotFull()) {
+            parkingLotManager.notifyParkingStatus(true);
             throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.PARKING_FULL, "Parking is full");
         }
-        this.vehicle = vehicle;
+        parkingAttendant.parkVehicle(vehicle);
+    }
+
+    //METHOD TO CHECK LOT IS FULL OR NOT
+    public boolean isLotFull() {
+        return vehicleMap.size() == SIZE_OF_LOT;
     }
 
     //METHOD TO PARK VEHICLE
-    public void unPark(Object vehicle) throws ParkingLotSystemException {
-        if (this.vehicle != null && !this.vehicle.equals(vehicle)) {
+    public void unPark(Vehicle vehicle) throws ParkingLotSystemException {
+        if (!isVehicleParked(vehicle)) {
             throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.NO_VEHICLE, "NO vehicle");
         }
-        this.vehicle = null;
+        parkingAttendant.unParkedVehicle(vehicle);
+        parkingLotManager.notifyParkingStatus(false);
     }
 
     //METHOD TO CHECK VEHICLE PARKED OR NOT
-    public boolean isVehiclePark(Object vehicle) {
-        return this.vehicle.equals(vehicle);
+    public boolean isVehicleParked(Vehicle vehicle) {
+        return vehicleMap.containsValue(vehicle);
     }
 
     //METHOD TO CHECK VEHICLE UNPARKED OR NOT
-    public boolean isVehicleUnPark() {
-        return this.vehicle == null;
+    public boolean isVehicleUnPark(Vehicle vehicle) {
+        return !isVehicleParked(vehicle);
     }
 }
