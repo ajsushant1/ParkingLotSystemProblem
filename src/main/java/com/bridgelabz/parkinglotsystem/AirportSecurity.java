@@ -4,7 +4,7 @@ public class AirportSecurity implements ParkingLotObserver {
     private Boolean isParkingFull;
 
     @Override
-    public void updateParkingStatus() {
-        isParkingFull = true;
+    public void updateParkingStatus(boolean parkingStatus) {
+        isParkingFull = parkingStatus;
     }
 }
