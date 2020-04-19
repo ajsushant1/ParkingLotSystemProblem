@@ -1,5 +1,5 @@
 package com.bridgelabz.parkinglotsystem;
 
 public interface ParkingLotObserver {
-    void updateParkingStatus();
+    void updateParkingStatus(boolean parkingStatus);
 }
