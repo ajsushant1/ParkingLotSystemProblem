@@ -1,10 +1,14 @@
 package com.bridgelabz.parkinglotsystem;
 
 public class ParkingLotOwner implements ParkingLotObserver {
+    ParkingLotSystem parkingLotSystem;
     private boolean isParkingFull;
+    public ParkingLotOwner() {
+        parkingLotSystem = new ParkingLotSystem();
+    }
 
     @Override
-    public void updateParkingStatus() {
-        isParkingFull = true;
+    public void updateParkingStatus(boolean parkingStatus) {
+        isParkingFull = parkingStatus;
     }
 }
