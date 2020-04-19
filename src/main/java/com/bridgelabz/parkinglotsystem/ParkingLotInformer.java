@@ -2,5 +2,6 @@ package com.bridgelabz.parkinglotsystem;
 
 public interface ParkingLotInformer {
     void addObserver(ParkingLotObserver lotObserver);
-    void notifyParkingStatus() ;
+
+    void notifyParkingStatus(boolean parkingStatus);
 }
