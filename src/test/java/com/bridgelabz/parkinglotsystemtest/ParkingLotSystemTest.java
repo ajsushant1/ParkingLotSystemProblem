@@ -112,4 +112,17 @@ public class ParkingLotSystemTest {
             Assert.assertEquals(ParkingLotSystemException.ExceptionType.ALREADY_PARKED, e.type);
         }
     }
+
+    @Test
+    public void givenAVehicle_WhenAskForPosition_ShouldReturnPosition() {
+        Vehicle vehicle1 = new Vehicle("1");
+        try {
+            parkingLotSystem.park(vehicle1);
+            String vehiclePosition = parkingLotSystem.getVehiclePosition(vehicle1);
+            Assert.assertEquals("VH 01", vehiclePosition);
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
