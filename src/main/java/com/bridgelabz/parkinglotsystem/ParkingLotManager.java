@@ -16,9 +16,9 @@ public class ParkingLotManager implements ParkingLotInformer {
     }
 
     @Override
-    public void notifyParkingStatus() {
+    public void notifyParkingStatus(boolean parkingStatus) {
         for (ParkingLotObserver lotObserver : lotObservers) {
-            lotObserver.updateParkingStatus();
+            lotObserver.updateParkingStatus(parkingStatus);
         }
     }
 }
