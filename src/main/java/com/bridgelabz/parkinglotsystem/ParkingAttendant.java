@@ -18,4 +18,11 @@ public class ParkingAttendant {
     public void unParkedVehicle(Vehicle vehicle) {
         parkingLotSystem.vehicleMap.entrySet().removeIf(entry -> vehicle.equals(entry.getValue()));
     }
+
+    public String getVehiclePosition(Vehicle vehicle) {
+        return parkingLotSystem.vehicleMap.keySet().stream()
+                .filter(key -> vehicle.equals(parkingLotSystem.vehicleMap.get(key)))
+                .findFirst()
+                .get();
+    }
 }

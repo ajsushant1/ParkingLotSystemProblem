@@ -40,7 +40,7 @@ public class ParkingLotSystem {
         return vehicleMap.size() == SIZE_OF_LOT;
     }
 
-    //METHOD TO PARK VEHICLE
+    //METHOD TO UNPARK VEHICLE
     public void unPark(Vehicle vehicle) throws ParkingLotSystemException {
         if (!isVehicleParked(vehicle)) {
             throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.NO_VEHICLE, "NO vehicle");
@@ -57,5 +57,9 @@ public class ParkingLotSystem {
     //METHOD TO CHECK VEHICLE UNPARKED OR NOT
     public boolean isVehicleUnPark(Vehicle vehicle) {
         return !isVehicleParked(vehicle);
+    }
+
+    public String getVehiclePosition(Vehicle vehicle) {
+        return parkingAttendant.getVehiclePosition(vehicle);
     }
 }
