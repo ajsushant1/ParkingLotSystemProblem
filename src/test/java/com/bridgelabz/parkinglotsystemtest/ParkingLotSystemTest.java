@@ -18,7 +18,7 @@ public class ParkingLotSystemTest {
 
     @Before
     public void setUp() throws Exception {
-        parkingLotSystem = new ParkingLotSystem(3);
+        parkingLotSystem = new ParkingLotSystem(2,2);
         parkingLotOwner = new ParkingLotOwner();
         airportSecurity = new AirportSecurity();
     }
@@ -37,10 +37,10 @@ public class ParkingLotSystemTest {
 
     @Test
     public void givenAVehicle_WhenAllReadyParked_ShouldThrowException() {
-        parkingLotSystem = new ParkingLotSystem(2);
+        parkingLotSystem = new ParkingLotSystem(1,1);
         try {
             parkingLotSystem.park(new Vehicle("1"));
-            parkingLotSystem.park(new Vehicle("1"));
+            parkingLotSystem.park(new Vehicle("2"));
             parkingLotSystem.park(new Vehicle("3"));
         } catch (ParkingLotSystemException e) {
             Assert.assertEquals(ParkingLotSystemException.ExceptionType.PARKING_FULL, e.type);
@@ -70,9 +70,10 @@ public class ParkingLotSystemTest {
     @Test
     public void givenAVehicle_WhenNoVehicleUnParked_ShouldThrowException() {
         try {
-            Vehicle vehicle1 = new Vehicle("2");
+            Vehicle vehicle1 = new Vehicle("1");
+            Vehicle vehicle2 = new Vehicle("2");
             parkingLotSystem.park(vehicle1);
-            parkingLotSystem.isVehicleUnPark(vehicle1);
+            parkingLotSystem.unPark(vehicle2);
         } catch (ParkingLotSystemException e) {
             Assert.assertEquals(ParkingLotSystemException.ExceptionType.NO_VEHICLE, e.type);
         }
@@ -124,7 +125,7 @@ public class ParkingLotSystemTest {
         try {
             parkingLotSystem.park(vehicle1);
             String vehiclePosition = parkingLotSystem.getVehiclePosition(vehicle1);
-            Assert.assertEquals("VH 01", vehiclePosition);
+            Assert.assertEquals("L1 1", vehiclePosition);
         } catch (ParkingLotSystemException e) {
             e.printStackTrace();
         }
@@ -138,6 +139,22 @@ public class ParkingLotSystemTest {
             String dateTime = formatter.format(date);
             String parkingDateAndTime = vehicle.getParkingDateAndTime();
             Assert.assertEquals(dateTime, parkingDateAndTime);
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenAVehicles_WhenParked_ShouldHaveEvenDistributionInLot() {
+        Vehicle vehicle1 = new Vehicle("1");
+        Vehicle vehicle2 = new Vehicle("2");
+        try {
+            parkingLotSystem.park(vehicle1);
+            parkingLotSystem.park(vehicle2);
+            String vehicle1Position = parkingLotSystem.getVehiclePosition(vehicle1);
+            String vehicle2Position = parkingLotSystem.getVehiclePosition(vehicle2);
+            Assert.assertEquals("L1 1",vehicle1Position);
+            Assert.assertEquals("L2 1",vehicle2Position);
         } catch (ParkingLotSystemException e) {
             e.printStackTrace();
         }
