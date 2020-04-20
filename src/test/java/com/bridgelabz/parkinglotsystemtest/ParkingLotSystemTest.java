@@ -5,11 +5,16 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ParkingLotSystemTest {
     ParkingLotSystem parkingLotSystem = null;
     Vehicle vehicle = null;
     ParkingLotOwner parkingLotOwner = null;
     AirportSecurity airportSecurity = null;
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    Date date = new Date();
 
     @Before
     public void setUp() throws Exception {
@@ -123,6 +128,18 @@ public class ParkingLotSystemTest {
         } catch (ParkingLotSystemException e) {
             e.printStackTrace();
         }
+    }
 
+    @Test
+    public void givenAVehicle_WhenParkedWithDateAndTime_ShouldReturnParkingDateTime() {
+        vehicle = new Vehicle("1");
+        try {
+            parkingLotSystem.park(vehicle);
+            String dateTime = formatter.format(date);
+            String parkingDateAndTime = vehicle.getParkingDateAndTime();
+            Assert.assertEquals(dateTime, parkingDateAndTime);
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
+        }
     }
 }
