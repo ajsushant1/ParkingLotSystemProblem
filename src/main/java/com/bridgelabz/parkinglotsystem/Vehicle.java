@@ -6,13 +6,15 @@ public class Vehicle {
     VehicleSize vehicleSize;
     private String parkingDateAndTime;
     private String vehicleId;
+    Color color;
 
-    public Vehicle(String vehicleId, VehicleType vehicleType, VehicleSize vehicleSize) {
+    public Vehicle(String vehicleId, VehicleType vehicleType, VehicleSize vehicleSize, Color color) {
         parkingDateTime = new ParkingDateTime();
         this.vehicleId = vehicleId;
         parkingDateAndTime = parkingDateTime.getDateTime();
         this.vehicleType = vehicleType;
         this.vehicleSize = vehicleSize;
+        this.color=color;
     }
 
     public String getParkingDateAndTime() {
@@ -26,4 +28,6 @@ public class Vehicle {
     public enum VehicleSize {
         SMALL, LARGE
     }
+
+    public enum Color {BLACK, BLUE, WHITE}
 }
