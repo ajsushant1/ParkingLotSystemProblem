@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class ParkingLotSystem {
     int SIZE_OF_LOT;
-    int NO_OF_LOTS;
+    int NUMBER_OF_LOTS;
     ParkingLotManager parkingLotManager;
     ParkingLotOwner parkingLotOwner;
     AirportSecurity airportSecurity;
@@ -13,9 +13,9 @@ public class ParkingLotSystem {
     Map<String, Vehicle> vehicleMap;
 
     //CONSTRUCTOR
-    public ParkingLotSystem(int NO_OF_LOTS, int SIZE_OF_LOT) {
+    public ParkingLotSystem(int NUMBER_OF_LOTS, int SIZE_OF_LOT) {
         this.SIZE_OF_LOT = SIZE_OF_LOT;
-        this.NO_OF_LOTS = NO_OF_LOTS;
+        this.NUMBER_OF_LOTS = NUMBER_OF_LOTS;
         parkingLotManager = new ParkingLotManager();
         parkingLotOwner = new ParkingLotOwner();
         airportSecurity = new AirportSecurity();
@@ -39,7 +39,7 @@ public class ParkingLotSystem {
 
     //METHOD TO CHECK LOT IS FULL OR NOT
     public boolean isLotFull() {
-        return vehicleMap.size() == SIZE_OF_LOT * NO_OF_LOTS;
+        return vehicleMap.size() == SIZE_OF_LOT * NUMBER_OF_LOTS;
     }
 
     //METHOD TO UNPARK VEHICLE
@@ -61,7 +61,13 @@ public class ParkingLotSystem {
         return !isVehicleParked(vehicle);
     }
 
+    //METHOD TO GET VEHICLE PARKING POSITION
     public String getVehiclePosition(Vehicle vehicle) {
         return parkingAttendant.getVehiclePosition(vehicle);
+    }
+
+    //METHOD TO GET NUMBER OF VEHICLES IN A LOT
+    public int getNumberOfVehicles(int lotNumber) {
+        return (int) vehicleMap.keySet().stream().filter(key -> key.contains("L" + lotNumber)).count();
     }
 }
