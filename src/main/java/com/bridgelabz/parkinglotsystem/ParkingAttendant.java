@@ -12,7 +12,7 @@ public class ParkingAttendant {
         if (parkingLotSystem.isVehicleParked(vehicle)) {
             throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.ALREADY_PARKED, "Vehicle is already parked");
         }
-        String key = getParkingPosition();
+        String key = (vehicle.vehicleSize == Vehicle.VehicleSize.LARGE) ? getPositionWithMinimumVehicle() : getParkingPosition();
         parkingLotSystem.vehicleMap.put(key, vehicle);
     }
 
@@ -29,7 +29,7 @@ public class ParkingAttendant {
 
     public String getParkingPosition() {
         String position = null;
-        while (lot++ <= parkingLotSystem.NO_OF_LOTS) {
+        while (lot++ <= parkingLotSystem.NUMBER_OF_LOTS) {
             for (int index = 1; index < parkingLotSystem.SIZE_OF_LOT; index++) {
                 String key = "L".concat(lot + " " + index);
                 if (!parkingLotSystem.vehicleMap.containsKey(key)) {
@@ -37,10 +37,20 @@ public class ParkingAttendant {
                     break;
                 }
             }
-            if (lot == parkingLotSystem.NO_OF_LOTS)
+            if (lot == parkingLotSystem.NUMBER_OF_LOTS)
                 lot = 0;
             break;
         }
         return position;
+    }
+
+    public String getPositionWithMinimumVehicle() throws ParkingLotSystemException {
+        int count = 0;
+        while (count++ < parkingLotSystem.NUMBER_OF_LOTS) {
+            if (parkingLotSystem.getNumberOfVehicles(count) < (parkingLotSystem.SIZE_OF_LOT - 1)) {
+                return "L" + count + " " + (parkingLotSystem.getNumberOfVehicles(count) + 1);
+            }
+        }
+        throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.PARKING_FULL, "No space for large vehicle");
     }
 }
