@@ -285,4 +285,38 @@ public class ParkingLotSystemTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenParkingLot_WhenVehicleBrandMatch_ShouldReturnListOfVehicles() {
+        PoliceDepartment policeDepartment = new PoliceDepartment(parkingLotSystem);
+        Vehicle vehicle1 = new Vehicle("1", Vehicle.VehicleType.NORMAL, size, Vehicle.Color.BLACK, "BMW", attendantName);
+        Vehicle vehicle2 = new Vehicle("2", Vehicle.VehicleType.NORMAL, Vehicle.VehicleSize.LARGE, Vehicle.Color.WHITE, brand, attendantName);
+        Vehicle vehicle3 = new Vehicle("3", Vehicle.VehicleType.NORMAL, size, Vehicle.Color.BLUE, "BMW", attendantName);
+        try {
+            parkingLotSystem.park(vehicle1);
+            parkingLotSystem.park(vehicle2);
+            parkingLotSystem.park(vehicle3);
+            Map<String, Vehicle> vehiclesList = policeDepartment.getVehiclesWithBrandName("BMW");
+            Assert.assertEquals(2, vehiclesList.size());
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenParkingLot_WhenVehicleBrandNameNotMatch_ShouldReturnZeroListOfVehicles() {
+        PoliceDepartment policeDepartment = new PoliceDepartment(parkingLotSystem);
+        Vehicle vehicle1 = new Vehicle("1", Vehicle.VehicleType.NORMAL, size, Vehicle.Color.BLACK, "Hundai", attendantName);
+        Vehicle vehicle2 = new Vehicle("2", Vehicle.VehicleType.NORMAL, Vehicle.VehicleSize.LARGE, Vehicle.Color.WHITE, brand, attendantName);
+        Vehicle vehicle3 = new Vehicle("3", Vehicle.VehicleType.NORMAL, size, Vehicle.Color.BLUE, "Suzuki", attendantName);
+        try {
+            parkingLotSystem.park(vehicle1);
+            parkingLotSystem.park(vehicle2);
+            parkingLotSystem.park(vehicle3);
+            Map<String, Vehicle> vehiclesList = policeDepartment.getVehiclesWithBrandName("BMW");
+            Assert.assertEquals(0, vehiclesList.size());
+        } catch (ParkingLotSystemException e) {
+            e.printStackTrace();
+        }
+    }
 }
