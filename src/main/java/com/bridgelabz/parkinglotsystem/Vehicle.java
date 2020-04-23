@@ -4,17 +4,21 @@ public class Vehicle {
     ParkingDateTime parkingDateTime;
     VehicleType vehicleType;
     VehicleSize vehicleSize;
-    private String parkingDateAndTime;
-    private String vehicleId;
+    String attendantName;
+    String brandName;
     Color color;
+    private String parkingDateAndTime;
+    private String plantNumber;
 
-    public Vehicle(String vehicleId, VehicleType vehicleType, VehicleSize vehicleSize, Color color) {
+    public Vehicle(String plantNumber, VehicleType vehicleType, VehicleSize vehicleSize, Color color, String brandName, String attendantName) {
         parkingDateTime = new ParkingDateTime();
-        this.vehicleId = vehicleId;
+        this.plantNumber = plantNumber;
         parkingDateAndTime = parkingDateTime.getDateTime();
         this.vehicleType = vehicleType;
         this.vehicleSize = vehicleSize;
-        this.color=color;
+        this.color = color;
+        this.brandName = brandName;
+        this.attendantName = attendantName;
     }
 
     public String getParkingDateAndTime() {

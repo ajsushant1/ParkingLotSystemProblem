@@ -13,7 +13,14 @@ public class PoliceDepartment {
     }
 
     public Map<String, Vehicle> getVehicles(Vehicle.Color color) {
-        return vehicles = parkingLotSystem.vehicleMap.entrySet().stream().filter(entry -> color.equals(entry.getValue().color))
+        return vehicles = parkingLotSystem.vehicleMap.entrySet().stream()
+                .filter(entry -> color.equals(entry.getValue().color))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
+    public Map<String, Vehicle> getVehiclesWithColorAndBrand(Vehicle.Color color, String brandName) {
+        return vehicles = parkingLotSystem.vehicleMap.entrySet().stream()
+                .filter(entry -> color.equals(entry.getValue().color) && brandName.equals(entry.getValue().brandName))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }
