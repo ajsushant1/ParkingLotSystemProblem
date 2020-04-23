@@ -1,5 +1,7 @@
 package com.bridgelabz.parkinglotsystem;
 
+import java.time.LocalDateTime;
+
 public class Vehicle {
     ParkingDateTime parkingDateTime;
     VehicleType vehicleType;
@@ -7,8 +9,8 @@ public class Vehicle {
     String attendantName;
     String brandName;
     Color color;
-    private String parkingDateAndTime;
-    private String plantNumber;
+    public LocalDateTime parkingDateAndTime;
+    String plantNumber;
 
     public Vehicle(String plantNumber, VehicleType vehicleType, VehicleSize vehicleSize, Color color, String brandName, String attendantName) {
         parkingDateTime = new ParkingDateTime();
@@ -19,10 +21,6 @@ public class Vehicle {
         this.color = color;
         this.brandName = brandName;
         this.attendantName = attendantName;
-    }
-
-    public String getParkingDateAndTime() {
-        return parkingDateAndTime;
     }
 
     public enum VehicleType {
