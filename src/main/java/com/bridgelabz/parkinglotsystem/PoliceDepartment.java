@@ -23,4 +23,10 @@ public class PoliceDepartment {
                 .filter(entry -> color.equals(entry.getValue().color) && brandName.equals(entry.getValue().brandName))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
+
+    public Map<String, Vehicle> getVehiclesWithBrandName(String brandName) {
+        return vehicles = parkingLotSystem.vehicleMap.entrySet().stream()
+                .filter(entry -> brandName.equals(entry.getValue().brandName))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
 }
