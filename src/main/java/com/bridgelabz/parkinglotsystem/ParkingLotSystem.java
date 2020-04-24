@@ -4,13 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ParkingLotSystem {
+    public Map<String, Vehicle> vehicleMap;
     int SIZE_OF_LOT;
     int NUMBER_OF_LOTS;
     ParkingLotManager parkingLotManager;
     ParkingLotOwner parkingLotOwner;
     AirportSecurity airportSecurity;
     ParkingAttendant parkingAttendant;
-    Map<String, Vehicle> vehicleMap;
 
     //CONSTRUCTOR
     public ParkingLotSystem(int NUMBER_OF_LOTS, int SIZE_OF_LOT) {
@@ -68,6 +68,6 @@ public class ParkingLotSystem {
 
     //METHOD TO GET NUMBER OF VEHICLES IN A LOT
     public int getNumberOfVehicles(int lotNumber) {
-        return (int) vehicleMap.keySet().stream().filter(key -> key.contains("L" + lotNumber)).count();
+        return (int) vehicleMap.keySet().stream().filter(key -> key.contains(lotNumber + "L")).count();
     }
 }

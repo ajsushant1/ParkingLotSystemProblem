@@ -1,7 +1,7 @@
 package com.bridgelabz.parkinglotsystem;
 
 public class ParkingAttendant {
-    int lot;
+    int character = 64;
     ParkingLotSystem parkingLotSystem;
 
     public ParkingAttendant(ParkingLotSystem parkingLotSystem) {
@@ -28,27 +28,33 @@ public class ParkingAttendant {
     }
 
     public String getParkingPosition() {
+        int slotNumber = 0;
         String position = null;
-        while (lot++ <= parkingLotSystem.NUMBER_OF_LOTS) {
-            for (int index = 1; index < parkingLotSystem.SIZE_OF_LOT; index++) {
-                String key = "L".concat(lot + " " + index);
+        while (slotNumber++ <= parkingLotSystem.SIZE_OF_LOT) {
+            char row = (char) (character + slotNumber);
+            int flag = 0;
+            for (int lotNumber = 1; lotNumber <= parkingLotSystem.NUMBER_OF_LOTS; lotNumber++) {
+                String key = lotNumber + "L" + row + " " + slotNumber;
                 if (!parkingLotSystem.vehicleMap.containsKey(key)) {
                     position = key;
+                    flag = 1;
                     break;
                 }
             }
-            if (lot == parkingLotSystem.NUMBER_OF_LOTS)
-                lot = 0;
-            break;
+            if (flag == 1)
+                break;
         }
         return position;
     }
 
     public String getPositionWithMinimumVehicle() throws ParkingLotSystemException {
         int count = 0;
+        int character = 65;
         while (count++ < parkingLotSystem.NUMBER_OF_LOTS) {
+            int numberOfVehicles = parkingLotSystem.getNumberOfVehicles(count);
+            char row = (char) (character + numberOfVehicles);
             if (parkingLotSystem.getNumberOfVehicles(count) < (parkingLotSystem.SIZE_OF_LOT - 1)) {
-                return "L" + count + " " + (parkingLotSystem.getNumberOfVehicles(count) + 1);
+                return count + "L" + row + " " + (parkingLotSystem.getNumberOfVehicles(count) + 1);
             }
         }
         throw new ParkingLotSystemException(ParkingLotSystemException.ExceptionType.PARKING_FULL, "No space for large vehicle");
