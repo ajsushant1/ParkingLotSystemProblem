@@ -1,4 +1,7 @@
-package com.bridgelabz.parkinglotsystem;
+package com.bridgelabz.observer;
+
+import com.bridgelabz.observer.ParkingLotInformer;
+import com.bridgelabz.observer.ParkingLotObserver;
 
 import java.util.ArrayList;
 import java.util.List;

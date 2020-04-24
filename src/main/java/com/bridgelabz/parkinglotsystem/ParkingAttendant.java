@@ -1,5 +1,7 @@
 package com.bridgelabz.parkinglotsystem;
 
+import com.bridgelabz.exception.ParkingLotSystemException;
+
 public class ParkingAttendant {
     int character = 64;
     ParkingLotSystem parkingLotSystem;

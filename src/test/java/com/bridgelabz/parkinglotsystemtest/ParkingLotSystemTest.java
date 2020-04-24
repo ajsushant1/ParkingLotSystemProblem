@@ -1,5 +1,7 @@
 package com.bridgelabz.parkinglotsystemtest;
 
+import com.bridgelabz.exception.ParkingLotSystemException;
+import com.bridgelabz.observer.ParkingLotOwner;
 import com.bridgelabz.parkinglotsystem.*;
 import org.junit.Assert;
 import org.junit.Before;
