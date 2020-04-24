@@ -36,4 +36,12 @@ public class PoliceDepartment {
                 .filter(entry -> entry.getValue().parkingDateAndTime.getMinute() - LocalDateTime.now().getMinute() <= minutes)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
+
+    public Map<String, Vehicle> getVehiclesByRow(Vehicle.VehicleType vehicleType, Vehicle.VehicleSize vehicleSize, char parkingRow) {
+        return vehicles = parkingLotSystem.vehicleMap.entrySet().stream()
+                .filter(entry -> entry.getKey().contains("L" + parkingRow))
+                .filter(entry -> vehicleType.equals(entry.getValue().vehicleType))
+                .filter(entry -> vehicleSize.equals(entry.getValue().vehicleSize))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
 }
