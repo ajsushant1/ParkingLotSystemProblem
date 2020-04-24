@@ -1,6 +1,7 @@
 package com.bridgelabz.parkinglotsystem;
 
 import com.bridgelabz.exception.ParkingLotSystemException;
+import com.bridgelabz.observer.AirportSecurity;
 import com.bridgelabz.observer.ParkingLotManager;
 import com.bridgelabz.observer.ParkingLotOwner;
 
